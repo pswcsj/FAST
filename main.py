@@ -20,6 +20,7 @@ import warnings
 import torch.nn as nn
 warnings.filterwarnings('ignore')
 import json
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 short_size = 640
 pooling_size=9
@@ -171,10 +172,7 @@ def main(args):
             sys.stdout.flush()
             checkpoint = torch.load(args.checkpoint)
 
-            if not args.ema:
-                state_dict = checkpoint['state_dict']
-            else:
-                state_dict = checkpoint['ema']
+            state_dict = checkpoint['ema']
 
             d = dict()
             for key, value in state_dict.items():
@@ -209,8 +207,8 @@ def main(args):
     img = scale_aligned_short(img, short_size)
     img = Image.fromarray(img)
     img = img.convert('RGB')
-    img = transforms.ToTensor()(img)
-    img = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])(img)
+    img = transforms.ToTensor()(img).to(device)
+    img = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])(img).unsqueeze(0)
 
     with torch.no_grad():
         print(model(img))
