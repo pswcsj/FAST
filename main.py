@@ -222,7 +222,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Hyperparams')
     # parser.add_argument('config', help='config file path')
     parser.add_argument('checkpoint', nargs='?', type=str, default=None)
-    parser.add_argument('--report-speed', action='store_true')
     parser.add_argument('--print-model', action='store_true')
     parser.add_argument('--min-score', default=None, type=float)
     parser.add_argument('--min-area', default=None, type=int)
@@ -232,8 +231,5 @@ if __name__ == '__main__':
     parser.add_argument('--cpu', action='store_true')
 
     args = parser.parse_args()
-    mmcv.mkdir_or_exist("./speed_test")
-    config_name = os.path.basename(args.config)
-    logging.basicConfig(filename=f'./speed_test/{config_name}.txt', level=logging.INFO)
 
     main(args)
