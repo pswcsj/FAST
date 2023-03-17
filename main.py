@@ -220,7 +220,7 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Hyperparams')
-    parser.add_argument('config', help='config file path')
+    # parser.add_argument('config', help='config file path')
     parser.add_argument('checkpoint', nargs='?', type=str, default=None)
     parser.add_argument('--report-speed', action='store_true')
     parser.add_argument('--print-model', action='store_true')
