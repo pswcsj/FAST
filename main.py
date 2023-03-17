@@ -150,10 +150,7 @@ def main(args):
     # cfg = Config.fromfile(args.config)
     cfg = Config.fromfile("config/fast/tt/fast_base_tt_800_finetune_ic17mlt.py")
     args.checkpoint = "pretrained/fast_base_tt_800_finetune_ic17mlt.pth"
-    for d in [cfg, cfg.data.test]:
-        d.update(dict(
-            report_speed=args.report_speed,
-        ))
+
     if args.min_score is not None:
         cfg.test_cfg.min_score = args.min_score
     if args.min_area is not None:
